@@ -1,0 +1,89 @@
+.search-container {
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+    /* height: 100vh; */
+    flex-direction: column;
+}
+
+.search{
+    margin: 20px;
+    display: flex;
+    width: 60% !important;
+    justify-content: center;
+}
+
+.search-tag{
+    display: flex;
+    justify-content: center;
+    border-radius: 50px;
+    width: 50% !important;
+    box-shadow: 0 0 3px 0 grey !important;
+    border-color: grey !important;
+    width: fit-content;
+}
+
+.search-board{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border-radius: 50px;
+    border: none !important;
+    &:focus {
+        box-shadow: 0 0 0 0 ;
+        /* border: 2px solid rgb(179, 179, 179); 
+        box-shadow: 0 0 3px 0 rgb(179, 179, 179); */
+    }
+    &:not(:focus) {
+        box-shadow: 0 0 0 0 ;
+    }
+}
+
+/* .search-board[type="text"]:focus {
+    box-shadow: 0 0 3px 0 grey !important;
+    border-color: grey !important;
+}
+
+.search-board:hover{
+    box-shadow: 0 0 3px 0 grey !important;
+    border-color: grey !important;
+} */
+
+input.search-board {
+    padding: 9px 4px 9px 43px;
+    background: transparent url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' class='bi bi-search' viewBox='0 0 16 16'%3E%3Cpath d='M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z'%3E%3C/path%3E%3C/svg%3E") no-repeat 16px center;
+}
+
+.search-btn{
+    border-radius: 50px;
+    border: none;
+    margin: 4px;
+    display: flex;
+    padding: 0px !important;
+    align-items: center;
+    justify-content: center;
+    color: green !important;
+}
+.search-btn:hover{
+    background-color: white !important;
+    color: green !important;
+}
+
+.search-icon{
+    margin-top: 6px;
+    margin-bottom: 6px;
+    margin-right: 12px;
+    margin-left: 6px;
+}
+
+.search-btn p {
+    padding: 0;
+    margin: 0;
+}
+
+.search-result-container{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
