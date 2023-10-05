@@ -1,35 +1,61 @@
+.search-btn-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 10px;
+    z-index: 1;
+    background: white;
+}
+
+.back-btn-container {
+    margin-left: 20%;
+    margin-top: 10px;
+}
+
+.card-btn p {
+    margin: 0;
+}
+
 .search-container {
     display: flex;
-    justify-content: center; 
+    justify-content: center;
     align-items: center;
     flex-direction: column;
     transition: height 0.3s ease;
 }
 
-.search{
+.logo {
+    height: 35px;
+    margin-right: 5px;
+    margin-left: 5px;
+}
+
+
+/* search tag start */
+.search {
     margin: 20px;
     display: flex;
-    width: 60% !important;
+    width: 100% !important;
     justify-content: center;
 }
 
-.search-tag{
+.search-tag {
     display: flex;
     justify-content: center;
     border-radius: 50px;
-    width: 50% !important;
+    width: 60% !important;
     border: 2px solid rgb(190, 190, 190) !important;
     transition: border-color 0.3s;
-    /* box-shadow: 0 0 3px 0 grey !important; */
-    width: fit-content;
-    &:hover{
+
+    &:hover {
         border: 2px solid rgb(190, 190, 190) !important;
     }
 }
 
 .selected {
     border-color: rgb(115, 49, 186) !important;
-    &:hover{
+    &:hover {
         border-color: rgb(115, 49, 186) !important;
     }
     &:hover {
@@ -40,19 +66,20 @@
     }
 }
 
-.search-board{
+.search-board {
     display: flex;
     flex-direction: row;
     align-items: center;
     border-radius: 50px;
     border: none !important;
     &:focus {
-        box-shadow: 0 0 0 0 ;
+        box-shadow: 0 0 0 0;
     }
     &:not(:focus) {
-        box-shadow: 0 0 0 0 ;
+        box-shadow: 0 0 0 0;
     }
 }
+
 .search-board::placeholder {
     color: grey;
 }
@@ -62,7 +89,7 @@ input.search-board {
     background: transparent url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' class='bi bi-search' viewBox='0 0 16 16'%3E%3Cpath d='M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z'%3E%3C/path%3E%3C/svg%3E") no-repeat 16px center;
 }
 
-.search-btn{
+.search-btn {
     border-radius: 50px;
     border: none;
     margin: 4px;
@@ -72,12 +99,13 @@ input.search-board {
     justify-content: center;
     color: rgb(115, 49, 186) !important;
 }
-.search-btn:hover{
+
+.search-btn:hover {
     background-color: white !important;
     color: rgb(115, 49, 186) !important;
 }
 
-.search-icon{
+.search-icon {
     margin-top: 6px;
     margin-bottom: 6px;
     margin-right: 12px;
@@ -90,9 +118,87 @@ input.search-board {
     margin: 0;
 }
 
-.search-result-container{
-    width: 60% !important;
+/* search tag end */
+
+
+
+.search-result-container {
+    padding-top: 20px;
+    overflow-y: auto;
+    height: calc(100vh - 70px);
+}
+
+.search-cards {
     display: flex;
     justify-content: center;
     align-items: center;
 }
+
+
+
+/* bookmark section starts */
+.bookmark-section.show {
+    transform: translateY(0);
+    margin-top: 15px;
+    top: 0;
+    height: 98.5vh;
+    border-radius: 0;
+}
+
+.bookmark-section {
+    position: absolute;
+    bottom: 70px;
+    left: 0;
+    width: 100%;
+    transform: translateY(100%);
+    transition: transform 0.3s ease-in-out;
+    z-index: 2;
+    display: flex;
+    justify-content: center;
+}
+
+.bookmarks.show {
+    width: 100%;
+}
+
+.bookmarks {
+    display: flex;
+    background: white;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+    border: 2px solid rgb(190, 190, 190);
+    width: 98%;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.bookmarks-icon {
+    cursor: pointer;
+    width: 100%;
+    display: flex;
+    padding: 20px;
+    justify-content: space-between;
+}
+
+.bookmarks-icon-1 {
+    display: flex;
+}
+
+.bookmarks-content.show {
+    transform: translateY(0);
+    margin-top: 15px;
+    top: 0;
+    height: 90vh;
+}
+
+.bookmarks-content {
+    border-top: 2px solid rgb(190, 190, 190);
+    z-index: 3;
+    width: inherit;
+    margin: 0 !important;
+    padding: 20px;
+}
+
+
+/* bookmark section end */

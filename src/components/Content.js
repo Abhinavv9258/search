@@ -5,23 +5,28 @@ import 'react-toastify/dist/ReactToastify.css';
 import { Button } from 'react-bootstrap';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import '../assets/css/Content.css';
+import Typography from '@mui/material/Typography';
 import { FaCircleArrowRight } from "react-icons/fa6";
 import SearchHeader from '../components/SearchHeader.js';
-import Logo from '../assets/images/logo.png'
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+
 
 const Content = () => {
     const [query, setQuery] = useState('');
     const [results, setResults] = useState([]);
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
-    const [searchTagLocation, setSearchTagLocation] = useState('100vh');
+    const [searchTagLocation, setSearchTagLocation] = useState('90vh');
 
     // search box shadow
     const [selected, setSelected] = useState(false);
     const divRef = useRef(null);
 
     const handleSelected = () => {
-        if(!selected){
+        if (!selected) {
             setSelected(!selected);
         }
     };
@@ -111,75 +116,114 @@ const Content = () => {
         }
     };
 
+    const [showBookmarks, setShowBookmarks] = useState(false);
+
+    const toggleBookmarkSection = () => {
+        setShowBookmarks(!showBookmarks);
+    };
+
+
     return (
         <>
-            {searchTagLocation === 'auto' ? ( 
+            <div className='search-btn-container'>
+                {searchTagLocation === 'auto' ? (
+                    <div className='back-btn-container'>
+                        <Button
+                            className='card-btn'
+                            onClick={() => {
+                                setQuery('');
+                                window.location.href = '/';
+                            }}
+                        >
+                            <ArrowBackIosIcon sx={{ fontSize: "large" }} />
+                            <p>Back</p>
+                        </Button>
+                    </div>
+                ) : (
+                    null
+                )}
+                <div className='search-container' style={{ height: `${searchTagLocation}` }}>
+                    {searchTagLocation === '90vh' ? (
+                        <div>
+                            <SearchHeader />
+                        </div>
+                    ) : (
+                        null
+                    )}
+
+                    <div className='search'>
+                        <div
+                            ref={divRef}
+                            className={`search-tag ${selected ? 'selected' : ''}`}
+                            onClick={handleSelected}
+                        >
+                            <input className="form-control search-board"
+                                type="search"
+                                value={query}
+                                onKeyDown={handleSearch}
+                                onChange={handleInputChange}
+                                placeholder="Search for paper.."
+                                aria-label="Search" />
+                            <Button className='search-btn' onClick={performSearch} variant="outline-success">
+                                <FaCircleArrowRight className='search-icon' />
+                            </Button>
+                        </div>
+                    </div>
+
+                    {searchTagLocation === '90vh' ? (
+                        <div>
+                            <Button className='card-btn' onClick={performSearch}>
+                                Search the web
+                            </Button>
+                        </div>
+                    ) : (
+                        null
+                    )}
+                </div>
+            </div>
+
+            <div className='search-result-container' style={{ }}>
                 <div>
-                    <Button
-                        className='back-btn'
-                        onClick={() => {
-                            setQuery('');
-                            window.location.href = '/';
-                        }}
-                    >
-                        Back
-                    </Button>
-                </div>
-            ) : (
-                null
-            )}
-
-            <div className='search-container' style={{ height: `${searchTagLocation}` }}>
-                {searchTagLocation === '100vh' ? (
-                    <div>
-                        <SearchHeader />
-                    </div>
-                ) : (
-                    null
-                )}
-
-                <div className='search'>
-                    <div
-                        ref={divRef}
-                        className={`search-tag ${selected ? 'selected' : ''}`}
-                        onClick={handleSelected}
-                    >
-                        <input className="form-control search-board"
-                            type="search"
-                            value={query}
-                            onKeyDown={handleSearch}
-                            onChange={handleInputChange}
-                            placeholder="Search for paper.."
-                            aria-label="Search" />
-                        <Button className='search-btn' onClick={performSearch} variant="outline-success">
-                            <FaCircleArrowRight className='search-icon' />
-                        </Button>
-                        {/* <Link to={`/search?q=${encodeURIComponent(query)}`} className='search-btn'>
-                            <FaCircleArrowRight className='search-icon' />
-                        </Link> */}
+                    <div className='search-cards'>
+                        {
+                            loading ? (
+                                <p>
+                                    Loading...
+                                </p>
+                            ) : error ? null : (
+                                <Cards papers={results} />
+                            )
+                        }
                     </div>
                 </div>
+            </div>
 
-                {searchTagLocation === '100vh' ? (
-                    <div>
-                        <Button className='card-btn' onClick={performSearch}>
-                            Search the web
-                        </Button>
+            <div>
+                <div className={`bookmark-section ${showBookmarks ? ' show' : ''}`}>
+                    <div className={`bookmarks ${showBookmarks ? ' show' : ''}`}>
+                        <div onClick={toggleBookmarkSection} className='bookmarks-icon'>
+                            <div className='bookmarks-icon-1'>
+                                <BookmarkBorderIcon sx={{ fontSize: 30 }} />
+                                <Typography sx={{ fontSize: 20 }}>Bookmarks</Typography>
+                            </div>
+                            <div className='bookmarks-icon-2'>
+                                {showBookmarks ? (
+                                    <KeyboardArrowDownIcon sx={{ fontSize: 30 }} />
+                                ) : (
+                                    <KeyboardArrowUpIcon sx={{ fontSize: 30 }} />
+                                )}
+                            </div>
+                        </div>
+                        {showBookmarks ? (
+                            <div className={`bookmarks-content ${showBookmarks ? ' show' : ''}`}>
+                                <div className='bookmarks-content-list'>
+                                    hello
+                                </div>
+                            </div>
+                        ) : (
+                            null
+                        )}
                     </div>
-                ) : (
-                    null
-                )}
-
-                <div className='search-result-container'>
-                    {
-                        loading ? (
-                            <p>
-                                Loading...
-                            </p>
-                        ) : error ? null : (
-                            <Cards papers={results} />
-                        )
-                    }
                 </div>
             </div>
         </>

@@ -65,7 +65,7 @@ const Cards = ({ papers }) => {
                     : abstract;
         return (
             <div className='cards' key={paper.paperId}>
-                <Card className='card' sx={{ maxWidth: 1000 }}>
+                <Card className='card' sx={{ maxWidth: 1150 }}>
                     <CardHeader
                         action={
                             <IconButton aria-label="settings" className='icon-button'>
@@ -77,7 +77,7 @@ const Cards = ({ papers }) => {
                                     aria-expanded={open ? 'true' : undefined}
                                     onClick={handleClick}
                                 >
-                                    <MoreVertIcon />
+                                    <MoreVertIcon sx={{ color: 'rgb(115, 49, 186)' }}/>
                                 </Button>
                                 <Menu
                                     id="basic-menu"
@@ -137,7 +137,7 @@ const Cards = ({ papers }) => {
     });
 
     return (
-        <div>
+        <div style={{marginTop:"150px",padding:0}}>
             {paperElements && (paperElements.length > 0 && <Typography sx={{ fontSize: 22, marginLeft: 6.5, fontWeight: 'bold' }}> Web Results </Typography>)}
             {papers && (paperElements)}
         </div>

@@ -24,7 +24,9 @@
     border-radius: 50px !important;
     background-color: rgb(115, 49, 186);
     border-color: rgb(115, 49, 186);
-
+    display: flex;
+    flex-direction: row;
+    align-items: center;
     &:focus {
         background-color: rgb(115, 49, 186) !important;
         border-color: rgb(115, 49, 186) !important;
@@ -38,7 +40,7 @@
     }
 }
 
-.card-btn:hover {
+/* .card-btn:hover {
     background-color: rgb(115, 49, 186);
     border-color: rgb(115, 49, 186);
     box-shadow: 0 0 3px 0 rgb(115, 49, 186) !important;
@@ -55,7 +57,7 @@
     background-color: rgb(115, 49, 186);
     border-color: rgb(115, 49, 186);
     box-shadow: 0 0 3px 0 rgb(115, 49, 186) !important;
-}
+} */
 
 .icon-button, #basic-button {
     color:black !important;
@@ -75,9 +77,18 @@
 }
 
 .css-3dzjca-MuiPaper-root-MuiPopover-paper-MuiMenu-paper{
-    border: 0 !important;
+    border: 2px solid #ebebeb !important;
     box-shadow: none !important;
+    border-radius: 5%;
 }
+.css-3dzjca-MuiPaper-root-MuiPopover-paper-MuiMenu-paper a{
+    cursor: pointer;
+    text-decoration: none !important;
+    color:inherit;
+
+}
+
+
 
 @media(max-width:992px) {
     .e-learn-logo {
