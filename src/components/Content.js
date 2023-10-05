@@ -12,7 +12,7 @@ import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-
+import { Tooltip } from '@mui/material';
 
 const Content = () => {
     const [query, setQuery] = useState('');
@@ -20,6 +20,7 @@ const Content = () => {
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
     const [searchTagLocation, setSearchTagLocation] = useState('90vh');
+    const [bookmarkColor, setBookmarkColor] = useState('');
 
     // search box shadow
     const [selected, setSelected] = useState(false);
@@ -119,6 +120,11 @@ const Content = () => {
     const [showBookmarks, setShowBookmarks] = useState(false);
 
     const toggleBookmarkSection = () => {
+        if (!showBookmarks){
+            setBookmarkColor('rgb(115, 49, 186)');
+        }else{
+            setBookmarkColor('');
+        }
         setShowBookmarks(!showBookmarks);
     };
 
@@ -179,17 +185,24 @@ const Content = () => {
                     ) : (
                         null
                     )}
+                    {
+                        loading ? (
+                            <p style={{ zIndex: 2 }}>
+                                Loading...
+                            </p>
+                        ):(
+                            null
+                        )
+                    }
                 </div>
             </div>
 
-            <div className='search-result-container' style={{ }}>
+            <div className='search-result-container'>
                 <div>
                     <div className='search-cards'>
                         {
                             loading ? (
-                                <p>
-                                    Loading...
-                                </p>
+                                null
                             ) : error ? null : (
                                 <Cards papers={results} />
                             )
@@ -201,11 +214,14 @@ const Content = () => {
             <div>
                 <div className={`bookmark-section ${showBookmarks ? ' show' : ''}`}>
                     <div className={`bookmarks ${showBookmarks ? ' show' : ''}`}>
-                        <div onClick={toggleBookmarkSection} className='bookmarks-icon'>
-                            <div className='bookmarks-icon-1'>
-                                <BookmarkBorderIcon sx={{ fontSize: 30 }} />
-                                <Typography sx={{ fontSize: 20 }}>Bookmarks</Typography>
-                            </div>
+                        <div onClick={toggleBookmarkSection} className='bookmarks-icon' style={{ color: `${bookmarkColor}` }}>
+                            <Tooltip title={`${showBookmarks ? '' : 'Open Bookmark'}`}>
+                                <div className='bookmarks-icon-1'>
+                                    <BookmarkBorderIcon sx={{ fontSize: 30 }} />
+                                    <Typography sx={{ fontSize: 20 }}>Bookmarks</Typography>
+                                </div>
+                            </Tooltip>
+
                             <div className='bookmarks-icon-2'>
                                 {showBookmarks ? (
                                     <KeyboardArrowDownIcon sx={{ fontSize: 30 }} />
@@ -217,7 +233,7 @@ const Content = () => {
                         {showBookmarks ? (
                             <div className={`bookmarks-content ${showBookmarks ? ' show' : ''}`}>
                                 <div className='bookmarks-content-list'>
-                                    hello
+                                    <Typography>No saved bookmarks were found. Bookmarks can be created from search results.</Typography>
                                 </div>
                             </div>
                         ) : (

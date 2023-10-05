@@ -179,6 +179,10 @@ input.search-board {
     display: flex;
     padding: 20px;
     justify-content: space-between;
+    &:hover{
+        color: rgb(115, 49, 186);
+    }
+    
 }
 
 .bookmarks-icon-1 {

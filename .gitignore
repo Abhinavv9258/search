@@ -11,6 +11,8 @@ node_modules
 
 .gitignore
 
+db.json
+
 demo.js
 
 # production
