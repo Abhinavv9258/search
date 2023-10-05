@@ -26,8 +26,8 @@ const Cards = ({ papers }) => {
         setAnchorEl(null);
     };
 
-    const [expandedCitations, setExpandedCitations] = useState([]);
-    const [expandedAbstracts, setExpandedAbstracts] = useState([]);
+    // const [expandedCitations, setExpandedCitations] = useState([]);
+    // const [expandedAbstracts, setExpandedAbstracts] = useState([]);
 
     // const toggleVisibility = (paperId, type) => {
     //     if (type === 'citation') {
