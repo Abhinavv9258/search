@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import Cards from './Cards';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -7,7 +7,6 @@ import 'bootstrap-icons/font/bootstrap-icons.css';
 import '../assets/css/Content.css';
 import { FaCircleArrowRight } from "react-icons/fa6";
 import SearchHeader from '../components/SearchHeader.js';
-import SearchButton from '../components/SearchButton.js';
 
 const Content = () => {
     const [query, setQuery] = useState('');
@@ -16,6 +15,28 @@ const Content = () => {
     const [loading, setLoading] = useState(false);
     const [searchTagLocation, setSearchTagLocation] = useState('100vh');
     const [backButton, setBackButton] = useState(false);
+
+    // search box shadow
+    const [searchBox, setSearchBox] = useState(false);
+    const divRef = useRef(null);
+
+    const handleSearchBox = () => {
+        setSearchBox(!searchBox);
+    };
+
+    const handleClickOutside = (event) => {
+        if (divRef.current && !divRef.current.contains(event.target)) {
+            setSearchBox(false);
+        }
+    };
+
+    useEffect(() => {
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, []);
+
 
     const handleInputChange = (event) => {
         setQuery(event.target.value);
@@ -89,34 +110,26 @@ const Content = () => {
                 <div>
                     back
                 </div>
-            ):(
+            ) : (
                 null
             )}
             <div className='search-container' style={{ height: `${searchTagLocation}` }}>
-
-                {/* <input
-                type="text"
-                placeholder="Enter"
-                value={query}
-                onChange={handleInputChange}
-                prefix={<FaSearch />}
-
-            />
-            <button onClick={handleSearch}>Search</button> */
-                }
-
                 {
-                    backButton ?(
+                    backButton ? (
                         null
-                    ):(
+                    ) : (
                         <div>
-                            <SearchHeader/>
+                            <SearchHeader />
                         </div>
                     )
                 }
 
                 <div className='search'>
-                    <div className='search-tag'>
+                    <div 
+                    ref={divRef} 
+                    className={`search-tag ${searchBox ? 'selected' : ''}`} 
+                    onClick={handleSearchBox}
+                    >
                         <input className="form-control search-board"
                             type="search"
                             value={query}
@@ -125,7 +138,7 @@ const Content = () => {
                             placeholder="Search for paper.."
                             aria-label="Search" />
                         <Button className='search-btn' onClick={performSearch} variant="outline-success">
-                            <FaCircleArrowRight className='search-icon' style={{ fontSize: '28px' }} />
+                            <FaCircleArrowRight className='search-icon'/>
                         </Button>
                     </div>
                 </div>
@@ -135,17 +148,23 @@ const Content = () => {
                         null
                     ) : (
                         <div>
-                                <SearchButton/>
+                            <Button className='card-btn' onClick={performSearch}>
+                                Search the web
+                            </Button>
                         </div>
                     )
                 }
 
                 <div className='search-result-container'>
-                    {loading ? (
-                        <p>Loading...</p>
-                    ) : error ? null : (
-                        <Cards papers={results} />
-                    )}
+                    {
+                        loading ? (
+                            <p>
+                                Loading...
+                            </p>
+                        ) : error ? null : (
+                            <Cards papers={results} />
+                        )
+                    }
                 </div>
             </div>
         </>
