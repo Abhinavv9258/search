@@ -14,7 +14,6 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 import Tooltip from '@mui/material/Tooltip';
-import { bibtexParse } from 'bibtex-parse';
 
 
 const Cards = ({ papers }) => {
@@ -46,8 +45,8 @@ const Cards = ({ papers }) => {
         }
     };
 
-    const isCitationExpanded = (paperId) => expandedCitations.includes(paperId);
-    const isAbstractExpanded = (paperId) => expandedAbstracts.includes(paperId);
+    // const isCitationExpanded = (paperId) => expandedCitations.includes(paperId);
+    // const isAbstractExpanded = (paperId) => expandedAbstracts.includes(paperId);
 
     // bookmark functionality
     const [bookmarkedPapers, setBookmarkedPapers] = useState([]);
@@ -67,6 +66,13 @@ const Cards = ({ papers }) => {
         const url = paper.url;
         const urlParts = url.split('/');
         const partialUrl = urlParts.slice(0, 3).join('/');
+        const citationCount = paper.citationCount;
+        const openAccessPdf = paper.openAccessPdf;
+
+        let pdfUrl = null;
+        if (openAccessPdf) {
+            pdfUrl = openAccessPdf.url;
+        }
 
         const bibtexData = paper.citationStyles.bibtex;
         // Extract the year from the BibTeX data
@@ -94,6 +100,20 @@ const Cards = ({ papers }) => {
             booktitle = booktitleMatch[1];
         }
         const citations = paper.citationStyles.bibtex;
+
+        // const visibleCitations =
+        //     isCitationExpanded(paperId) || !citations
+        //         ? citations
+        //         : citations.length > 150
+        //             ? `${citations.substring(0, 150)}...`
+        //             : citations;
+        // const visibleAbstract =
+        //     isAbstractExpanded(paperId) || !abstract
+        //         ? abstract
+        //         : abstract.length > 300
+        //             ? `${abstract.substring(0, 300)}...`
+        //             : abstract;
+
         const content = (
             abstract ? (
                 abstract
@@ -119,10 +139,17 @@ const Cards = ({ papers }) => {
                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: 16, paddingBottom: 0 }}>
                         <div>
                             <Tooltip title='Open Website'>
-                                <Typography> <a href={partialUrl} target="_blank" rel="noopener noreferrer">{partialUrl} </a> ● WEB</Typography>
+                                <Typography> <a href={partialUrl} target="_blank" rel="noopener noreferrer">{partialUrl} </a> ●
+                                    {openAccessPdf ? (
+                                        <>PDF</>
+                                    ) : (
+                                        <>WEB</>
+                                    )
+                                    }
+                                </Typography>
                             </Tooltip>
                         </div>
-                        <div style={{ display: 'flex', alignItems: 'center'}}>
+                        <div style={{ display: 'flex', alignItems: 'center' }}>
                             {bookmarkedPapers.includes(paper.paperId) ? (
                                 <>
                                     <Tooltip title='Remove Bookmark'>
@@ -174,25 +201,72 @@ const Cards = ({ papers }) => {
                     <CardHeader
                         title={<Typography sx={{ fontSize: 20, fontWeight: 'bold' }}><a className='card-header-title' href={url} target="_blank" rel="noopener noreferrer">{title}</a></Typography>}
                         subheader={<>
-                            <Typography color="text.secondary" sx={{ fontSize: 15 }}>Year : {year}</Typography>
-                            <Typography color="text.secondary" sx={{ fontSize: 15 }}>Author : {visibleAuthor}</Typography>
-                            <Typography color="text.secondary" sx={{ fontSize: 15 }}>Book Title : {booktitle} </Typography>
+                            <Typography color="text.secondary" sx={{ fontSize: 12, fontStyle: 'italic' }}>Year : {year}</Typography>
+                            <Typography color="text.secondary" sx={{ fontSize: 12, fontStyle: 'italic' }}>Author : {visibleAuthor}</Typography>
+                            <Typography color="text.secondary" sx={{ fontSize: 12, fontStyle: 'italic' }}>Book Title : {booktitle} </Typography>
                         </>}
-                        style={{paddingTop: 5}}
+                        style={{ paddingTop: 5 }}
                     />
                     <ListGroup className="list-group-flush">
                         <ListGroup.Item>
                             {content && (
                                 <>
                                     {<Typography>{visibleContent}</Typography>}
-                                    <div className='card-btn-div'>
-                                        <Button className='card-btn' onClick={() => toggleVisibility(paperId, 'content')}>
-                                            Get Content
-                                        </Button>
-                                    </div>
                                 </>
                             )}
                         </ListGroup.Item>
+                        <div className='card-footer-div'>
+                            <div className='citation-count' style={{ color: 'blue' }}>
+                                Citation Count : {citationCount}
+                            </div>
+                            <div className='card-btn-div'>
+                                {openAccessPdf ? (
+                                    <Button className='card-cite-btn' href={pdfUrl} target="_blank" rel="noopener noreferrer">
+                                        PDF
+                                    </Button>
+                                ) : (
+                                    null
+                                )}
+                                <Button className='card-explore-btn' href={url} target="_blank" rel="noopener noreferrer">
+                                    Explore
+                                </Button>
+                            </div>
+                        </div>
+
+                        {/* <ListGroup.Item>
+                            {citations && (
+                                <>
+                                    {<Typography>{visibleCitations}</Typography>}
+                                    {citations.length > 150 && (
+                                        <div className='card-btn-div'>
+                                            <Button className='card-btn' onClick={() => toggleVisibility(paperId, 'citation')}>
+                                                {isCitationExpanded(paperId)
+                                                    ? 'Show Less'
+                                                    : 'Show More'}
+                                            </Button>
+                                        </div>
+                                    )}
+                                </>
+                            )}
+                        </ListGroup.Item> */}
+
+                        {/* <ListGroup.Item>
+                            {abstract && (
+                                <>
+                                    {<Typography>{visibleAbstract}</Typography>}
+                                    {abstract.length > 300 && (
+                                        <div className='card-btn-div'>
+                                            <Button className='card-btn' onClick={() => toggleVisibility(paperId, 'abstract')}>
+                                                {isAbstractExpanded(paperId)
+                                                    ? 'Show Less'
+                                                    : 'Show More'}
+                                            </Button>
+                                        </div>
+                                    )}
+                                </>
+                            )}
+                        </ListGroup.Item> */}
+
                     </ListGroup>
                 </Card>
             </div>
