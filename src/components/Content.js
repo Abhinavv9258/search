@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Cards from './Cards';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { Form, Button, InputGroup, FormControl } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import '../assets/css/Content.css'
 import { FaCircleArrowRight } from "react-icons/fa6";
@@ -19,7 +19,6 @@ const Content = () => {
     };
 
     const handleSearch = (event) => {
-        // Check if the "Enter" key (key code 13) was pressed
         if (event.key === 'Enter') {
             performSearch(query);
         }
@@ -46,31 +45,33 @@ const Content = () => {
                         throw new Error('Error fetching results');
                     }
                     const data = await response.json();
+                    if(!data.data){
+                        setSearchTagLocation('100vh');
+                        toast.info("No results found, try changing search keywords!", {
+                            position: toast.POSITION.TOP_RIGHT,
+                            autoClose: 3000,
+                        })
+                    }
+                    setSearchTagLocation('auto');
                     return data.data;
                 } catch (error) {
-                    console.error(error);
+                    setError(error);
+                    // console.log(error);
+                    console.log("Error while api hit",error);
                     throw error;
                 }
             };
             const results = await searchPublication(query);
-            if (!results) {
-                setSearchTagLocation('auto');
-                toast.info("No results found, try changing search keywords!", {
-                    position: toast.POSITION.TOP_RIGHT,
-                    autoClose: 3000,
-                })
-            }
+            setLoading(false);
             setResults(results);
         } catch (error) {
             setSearchTagLocation('100vh');
-            setError('Error fetching results');
+            setLoading(false);
+            setError('Error fetching results mai n');
             toast.warning('Input is required!', {
                 position: toast.POSITION.TOP_RIGHT,
                 autoClose: 3000,
             });
-        } finally {
-            setSearchTagLocation('auto');
-            setLoading(false);
         }
     };
 
@@ -98,8 +99,6 @@ const Content = () => {
                         placeholder="Search.."
                         aria-label="Search" />
                     <Button className='search-btn' onClick={performSearch} variant="outline-success">
-                        {/* <i className="bi bi-search"></i> */}
-                        {/* <p>Search</p> */}
                         <FaCircleArrowRight className='search-icon' style={{ fontSize: '28px' }} />
                     </Button>
                 </div>

@@ -3,41 +3,73 @@
     margin-right: 50px !important;
     margin-top: 20px !important;
     margin-bottom: 20px !important;
+    justify-content: center;
+}
+
+.card-btn-div{
+    display: flex;
+    justify-content: flex-end;
 }
 
 .card-btn {
     border-radius: 50px !important;
-    background-color: green;
-    border-color: green;
+    background-color: rgb(115, 49, 186);
+    border-color: rgb(115, 49, 186);
 
     &:focus {
-        background-color: green !important;
-        border-color: green !important;
-        box-shadow: 0 0 3px 0 green !important;
+        background-color: rgb(115, 49, 186) !important;
+        border-color: rgb(115, 49, 186) !important;
+        box-shadow: 0 0 3px 0 rgb(115, 49, 186) !important;
     }
 
     &:not(:focus) {
-        background-color: green;
-        border-color: green;
-        box-shadow: 0 0 3px 0 green !important;
+        background-color: rgb(115, 49, 186);
+        border-color: rgb(115, 49, 186);
+        box-shadow: 0 0 3px 0 rgb(115, 49, 186) !important;
     }
 }
 
 .card-btn:hover {
-    background-color: green;
-    border-color: green;
-    box-shadow: 0 0 3px 0 green !important;
+    background-color: rgb(115, 49, 186);
+    border-color: rgb(115, 49, 186);
+    box-shadow: 0 0 3px 0 rgb(115, 49, 186) !important;
 
 }
 
 .card-btn:active {
-    background-color: green;
-    border-color: green;
-    box-shadow: 0 0 3px 0 green !important;
+    background-color: rgb(115, 49, 186);
+    border-color: rgb(115, 49, 186);
+    box-shadow: 0 0 3px 0 rgb(115, 49, 186) !important;
 }
 
 .card-btn:focus {
-    background-color: green;
-    border-color: green;
-    box-shadow: 0 0 3px 0 green !important;
+    background-color: rgb(115, 49, 186);
+    border-color: rgb(115, 49, 186);
+    box-shadow: 0 0 3px 0 rgb(115, 49, 186) !important;
+}
+
+#basic-button{
+    color:black !important;
+    border:0;
+    background-color: white !important;
+}
+#basic-menu{
+    box-shadow:none !important;
+}
+
+.css-3dzjca-MuiPaper-root-MuiPopover-paper-MuiMenu-paper{
+    box-shadow: none !important;
+    border:1px solid !important;
+}
+
+.css-3dzjca-MuiPaper-root-MuiPopover-paper-MuiMenu-paper ul li {
+    border:1px solid !important;
+}
+
+@media(max-width:992px) {
+    .e-learn-logo {
+        height: 45px;
+        margin-top: 5px;
+        margin-right: 5px;
+    }
 }

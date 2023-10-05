@@ -62,11 +62,11 @@ input.search-board {
     padding: 0px !important;
     align-items: center;
     justify-content: center;
-    color: green !important;
+    color: rgb(115, 49, 186) !important;
 }
 .search-btn:hover{
     background-color: white !important;
-    color: green !important;
+    color: rgb(115, 49, 186) !important;
 }
 
 .search-icon{
@@ -82,7 +82,7 @@ input.search-board {
 }
 
 .search-result-container{
-    width: 100%;
+    width: 60% !important;
     display: flex;
     justify-content: center;
     align-items: center;
