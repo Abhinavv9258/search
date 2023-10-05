@@ -14,6 +14,7 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 import Tooltip from '@mui/material/Tooltip';
+import { bibtexParse } from 'bibtex-parse';
 
 
 const Cards = ({ papers }) => {
@@ -64,106 +65,131 @@ const Cards = ({ papers }) => {
         const title = paper.title;
         const abstract = paper.abstract;
         const url = paper.url;
+        const urlParts = url.split('/');
+        const partialUrl = urlParts.slice(0, 3).join('/');
+
+        const bibtexData = paper.citationStyles.bibtex;
+        // Extract the year from the BibTeX data
+        const yearMatch = bibtexData.match(/year\s*=\s*{(\d+)}/);
+        let year = null;
+        if (yearMatch) {
+            year = yearMatch[1];
+        }
+        // Extract the author from the BibTeX data
+        const authorMatch = bibtexData.match(/author\s*=\s*{([^{}]+)}/);
+        let author = null;
+        if (authorMatch) {
+            author = authorMatch[1];
+        }
+        const visibleAuthor = !author
+            ? author
+            : author.length > 100
+                ? `${author.substring(0, 100)}...`
+                : author;
+
+        // Extract the booktitle from the BibTeX data (assuming it's a conference or book title)
+        const booktitleMatch = bibtexData.match(/booktitle\s*=\s*{([^{}]+)}/);
+        let booktitle = null;
+        if (booktitleMatch) {
+            booktitle = booktitleMatch[1];
+        }
         const citations = paper.citationStyles.bibtex;
-        const visibleCitations =
-            isCitationExpanded(paperId) || !citations
-                ? citations
-                : citations.length > 150
-                    ? `${citations.substring(0, 150)}...`
-                    : citations;
-        const visibleAbstract =
-            isAbstractExpanded(paperId) || !abstract
-                ? abstract
-                : abstract.length > 150
-                    ? `${abstract.substring(0, 150)}...`
-                    : abstract;
+        const content = (
+            abstract ? (
+                abstract
+            ) : citations ? (
+                citations
+            ) : !citations ? (
+                abstract
+            ) : !abstract ? (
+                citations
+            ) : (
+                null
+            ));
+
+        const visibleContent = !content
+            ? content
+            : content.length > 300
+                ? `${content.substring(0, 300)}...`
+                : content;
+
         return (
             <div className='cards' key={paper.paperId}>
                 <Card className='card' sx={{ maxWidth: 1150 }}>
-                    <CardHeader
-                        title={<Typography sx={{ fontSize: 20 }}>{title}</Typography>}
-                        subheader={<Typography color="text.secondary" sx={{ fontSize: 15 }}>{paperId}</Typography>}
-                        action={
-                            <>
-                                <div style={{ display: 'flex', alignItems: 'center' }}>
-                                    {bookmarkedPapers.includes(paper.paperId) ? (
-                                        <>
-                                            <Tooltip title='Remove Bookmark'>
-                                                <div onClick={() => toggleBookmark(paper.paperId)} style={{ color: 'rgb(115, 49, 186)', padding: '8px' }} >
-                                                    <BookmarkIcon /> Remove
-                                                </div>
-                                            </Tooltip>
-                                        </>
-                                    ) : (
-                                        <>
-                                            <Tooltip title='Add Bookmark'>
-                                                <div onClick={() => toggleBookmark(paper.paperId)} style={{ color: 'rgb(115, 49, 186)', padding: '8px' }} >
-                                                    <BookmarkBorderIcon /> Bookmark
-                                                </div>
-                                            </Tooltip>
-                                        </>
-                                    )}
-
-                                    <Tooltip title='More'>
-                                        <IconButton aria-label="settings" className='icon-button'>
-                                            <Button
-                                                style={{ padding: 0, margin: 0 }}
-                                                id="basic-button"
-                                                aria-controls={open ? 'basic-menu' : undefined}
-                                                aria-haspopup="true"
-                                                aria-expanded={open ? 'true' : undefined}
-                                                onClick={handleClick}
-                                            >
-                                                <MoreVertIcon sx={{ color: 'rgb(115, 49, 186)' }} />
-                                            </Button>
-                                            <Menu
-                                                id="basic-menu"
-                                                anchorEl={anchorEl}
-                                                open={open}
-                                                onClose={handleClose}
-                                                MenuListProps={{
-                                                    'aria-labelledby': 'basic-button',
-                                                }}
-                                            >
-                                                <MenuItem > <a href={url} target="_blank" rel="noopener noreferrer">Open Link</a></MenuItem>
-                                                <MenuItem >Report</MenuItem>
-                                            </Menu>
-                                        </IconButton>
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: 16, paddingBottom: 0 }}>
+                        <div>
+                            <Tooltip title='Open Website'>
+                                <Typography> <a href={partialUrl} target="_blank" rel="noopener noreferrer">{partialUrl} </a> ● WEB</Typography>
+                            </Tooltip>
+                        </div>
+                        <div style={{ display: 'flex', alignItems: 'center'}}>
+                            {bookmarkedPapers.includes(paper.paperId) ? (
+                                <>
+                                    <Tooltip title='Remove Bookmark'>
+                                        <div onClick={() => toggleBookmark(paper.paperId)} style={{ color: 'rgb(115, 49, 186)', padding: '8px', cursor: 'pointer' }} >
+                                            <BookmarkIcon /> Remove
+                                        </div>
                                     </Tooltip>
-                                </div>
-                            </>
-                        }
+                                </>
+                            ) : (
+                                <>
+                                    <Tooltip title='Add Bookmark'>
+                                        <div onClick={() => toggleBookmark(paper.paperId)} style={{ color: 'rgb(115, 49, 186)', padding: '8px', cursor: 'pointer' }} >
+                                            <BookmarkBorderIcon /> Bookmark
+                                        </div>
+                                    </Tooltip>
+                                </>
+                            )}
+
+                            <Tooltip title='More'>
+                                <IconButton aria-label="settings" className='icon-button'>
+                                    <Button
+                                        style={{ padding: 0, margin: 0 }}
+                                        id="basic-button"
+                                        aria-controls={open ? 'basic-menu' : undefined}
+                                        aria-haspopup="true"
+                                        aria-expanded={open ? 'true' : undefined}
+                                        onClick={handleClick}
+                                    >
+                                        <MoreVertIcon sx={{ color: 'rgb(115, 49, 186)' }} />
+                                    </Button>
+                                    <Menu
+                                        id="basic-menu"
+                                        anchorEl={anchorEl}
+                                        open={open}
+                                        onClose={handleClose}
+                                        MenuListProps={{
+                                            'aria-labelledby': 'basic-button',
+                                        }}
+                                    >
+                                        <MenuItem > <a href={url} target="_blank" rel="noopener noreferrer">Open Link</a></MenuItem>
+                                        <MenuItem >Report</MenuItem>
+                                    </Menu>
+                                </IconButton>
+                            </Tooltip>
+                        </div>
+
+                    </div>
+
+                    <CardHeader
+                        title={<Typography sx={{ fontSize: 20, fontWeight: 'bold' }}><a className='card-header-title' href={url} target="_blank" rel="noopener noreferrer">{title}</a></Typography>}
+                        subheader={<>
+                            <Typography color="text.secondary" sx={{ fontSize: 15 }}>Year : {year}</Typography>
+                            <Typography color="text.secondary" sx={{ fontSize: 15 }}>Author : {visibleAuthor}</Typography>
+                            <Typography color="text.secondary" sx={{ fontSize: 15 }}>Book Title : {booktitle} </Typography>
+                        </>}
+                        style={{paddingTop: 5}}
                     />
                     <ListGroup className="list-group-flush">
                         <ListGroup.Item>
-                            {citations && (
+                            {content && (
                                 <>
-                                    {<Typography>{visibleCitations}</Typography>}
-                                    {citations.length > 150 && (
-                                        <div className='card-btn-div'>
-                                            <Button className='card-btn' onClick={() => toggleVisibility(paperId, 'citation')}>
-                                                {isCitationExpanded(paperId)
-                                                    ? 'Show Less'
-                                                    : 'Show More'}
-                                            </Button>
-                                        </div>
-                                    )}
-                                </>
-                            )}
-                        </ListGroup.Item>
-                        <ListGroup.Item>
-                            {abstract && (
-                                <>
-                                    {<Typography>{visibleAbstract}</Typography>}
-                                    {abstract.length > 150 && (
-                                        <div className='card-btn-div'>
-                                            <Button className='card-btn' onClick={() => toggleVisibility(paperId, 'abstract')}>
-                                                {isAbstractExpanded(paperId)
-                                                    ? 'Show Less'
-                                                    : 'Show More'}
-                                            </Button>
-                                        </div>
-                                    )}
+                                    {<Typography>{visibleContent}</Typography>}
+                                    <div className='card-btn-div'>
+                                        <Button className='card-btn' onClick={() => toggleVisibility(paperId, 'content')}>
+                                            Get Content
+                                        </Button>
+                                    </div>
                                 </>
                             )}
                         </ListGroup.Item>

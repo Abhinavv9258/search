@@ -12,6 +12,16 @@
     border-color: rgb(115, 49, 186);
 }
 
+.card-header-title, a{
+    cursor: pointer;
+    color:inherit;
+    text-decoration: none;
+    &:hover{
+        text-decoration: underline;
+    }
+}
+
+
 .list-group-flush{
     border: 1px solid #ebebeb !important;
 }
@@ -40,25 +50,6 @@
     }
 }
 
-/* .card-btn:hover {
-    background-color: rgb(115, 49, 186);
-    border-color: rgb(115, 49, 186);
-    box-shadow: 0 0 3px 0 rgb(115, 49, 186) !important;
-
-}
-
-.card-btn:active {
-    background-color: rgb(115, 49, 186);
-    border-color: rgb(115, 49, 186);
-    box-shadow: 0 0 3px 0 rgb(115, 49, 186) !important;
-}
-
-.card-btn:focus {
-    background-color: rgb(115, 49, 186);
-    border-color: rgb(115, 49, 186);
-    box-shadow: 0 0 3px 0 rgb(115, 49, 186) !important;
-} */
-
 .icon-button, #basic-button {
     color:black !important;
     border:0;
@@ -72,6 +63,11 @@
         box-shadow: none !important;
     }
 }
+
+.icon-button{
+    padding:0 !important;
+    margin-left: 10px !important;
+}
 #basic-menu{
     box-shadow:none !important;
 }
@@ -81,19 +77,10 @@
     box-shadow: none !important;
     border-radius: 5%;
 }
+
 .css-3dzjca-MuiPaper-root-MuiPopover-paper-MuiMenu-paper a{
     cursor: pointer;
     text-decoration: none !important;
     color:inherit;
 
-}
-
-
-
-@media(max-width:992px) {
-    .e-learn-logo {
-        height: 45px;
-        margin-top: 5px;
-        margin-right: 5px;
-    }
 }
