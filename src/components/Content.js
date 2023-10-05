@@ -14,7 +14,6 @@ const Content = () => {
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
     const [searchTagLocation, setSearchTagLocation] = useState('100vh');
-    const [backButton, setBackButton] = useState(false);
 
     // search box shadow
     const [searchBox, setSearchBox] = useState(false);
@@ -70,65 +69,71 @@ const Content = () => {
                     }
                     const data = await response.json();
                     if (!data.data) {
-                        setBackButton(true);
-                        setSearchTagLocation('100vh');
+                        if (query.trim() === '' && searchTagLocation !== 'auto') {
+                            setSearchTagLocation('auto');
+                        }
                         toast.info("No results found, try changing search keywords!", {
                             position: toast.POSITION.TOP_RIGHT,
                             autoClose: 3000,
                         })
+                    } else {
+                        if (searchTagLocation !== 'auto') {
+                            setSearchTagLocation('auto');
+                        }
                     }
-
-                    setBackButton(true);
-                    setSearchTagLocation('auto');
                     return data.data;
                 } catch (error) {
                     setError(error);
-                    // console.log(error);
                     console.log("Error while api hit", error);
                     throw error;
                 }
             };
             const results = await searchPublication(query);
-
             setLoading(false);
             setResults(results);
         } catch (error) {
-            setSearchTagLocation('100vh');
             setLoading(false);
-            setBackButton(false);
             setError('Error fetching results');
             toast.warning('Input is required!', {
                 position: toast.POSITION.TOP_RIGHT,
                 autoClose: 3000,
             });
+        } finally {
+            setLoading(false);
         }
     };
 
     return (
         <>
-            {backButton ? (
+            {searchTagLocation === 'auto' ? ( 
                 <div>
-                    back
+                    <Button
+                        className='back-btn'
+                        onClick={() => {
+                            setSearchTagLocation('100vh');
+                        }}
+                    >
+                        Back
+                    </Button>
                 </div>
             ) : (
                 null
             )}
+
             <div className='search-container' style={{ height: `${searchTagLocation}` }}>
-                {
-                    backButton ? (
-                        null
-                    ) : (
-                        <div>
-                            <SearchHeader />
-                        </div>
-                    )
-                }
+                {searchTagLocation === '100vh' ? (
+                    <div>
+                        <SearchHeader />
+                    </div>
+                ) : (
+                    null
+                )}
 
                 <div className='search'>
-                    <div 
-                    ref={divRef} 
-                    className={`search-tag ${searchBox ? 'selected' : ''}`} 
-                    onClick={handleSearchBox}
+                    <div
+                        ref={divRef}
+                        className={`search-tag ${searchBox ? 'selected' : ''}`}
+                        onClick={handleSearchBox}
                     >
                         <input className="form-control search-board"
                             type="search"
@@ -138,22 +143,20 @@ const Content = () => {
                             placeholder="Search for paper.."
                             aria-label="Search" />
                         <Button className='search-btn' onClick={performSearch} variant="outline-success">
-                            <FaCircleArrowRight className='search-icon'/>
+                            <FaCircleArrowRight className='search-icon' />
                         </Button>
                     </div>
                 </div>
 
-                {
-                    backButton ? (
-                        null
-                    ) : (
-                        <div>
-                            <Button className='card-btn' onClick={performSearch}>
-                                Search the web
-                            </Button>
-                        </div>
-                    )
-                }
+                {searchTagLocation === '100vh' ? (
+                    <div>
+                        <Button className='card-btn' onClick={performSearch}>
+                            Search the web
+                        </Button>
+                    </div>
+                ) : (
+                    null
+                )}
 
                 <div className='search-result-container'>
                     {

@@ -4,14 +4,11 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import {  Button } from 'react-bootstrap';
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
-import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import ListGroup from 'react-bootstrap/ListGroup';
 import '../assets/css/Cards.css'
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import Avatar from '@mui/material/Avatar';
-import { red } from '@mui/material/colors';
 import IconButton from '@mui/material/IconButton';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 
@@ -68,7 +65,7 @@ const Cards = ({ papers }) => {
                     : abstract;
         return (
             <div className='cards' key={paper.paperId}>
-                <Card sx={{ maxWidth: 1000 }}>
+                <Card className='card' sx={{ maxWidth: 1000 }}>
                     <CardHeader
                         action={
                             <IconButton aria-label="settings" className='icon-button'>

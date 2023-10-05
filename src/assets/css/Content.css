@@ -24,12 +24,12 @@
 }
 
 .search-tag:hover{
-    border: 1px solid grey !important;
+    border: 1px solid rgb(115, 49, 186) !important;
 
 }
 
 .selected {
-    border: 1px solid grey !important;
+    border: 1px solid rgb(115, 49, 186) !important;
 }
 .search-board{
     display: flex;

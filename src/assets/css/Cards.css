@@ -8,6 +8,10 @@
     border-radius: 5px !important;
 }
 
+.card:hover {
+    border-color: rgb(115, 49, 186);
+}
+
 .list-group-flush{
     border: 1px solid #ebebeb !important;
 }
