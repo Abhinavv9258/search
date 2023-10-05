@@ -7,6 +7,7 @@ import 'bootstrap-icons/font/bootstrap-icons.css';
 import '../assets/css/Content.css';
 import { FaCircleArrowRight } from "react-icons/fa6";
 import SearchHeader from '../components/SearchHeader.js';
+import Logo from '../assets/images/logo.png'
 
 const Content = () => {
     const [query, setQuery] = useState('');
@@ -16,16 +17,18 @@ const Content = () => {
     const [searchTagLocation, setSearchTagLocation] = useState('100vh');
 
     // search box shadow
-    const [searchBox, setSearchBox] = useState(false);
+    const [selected, setSelected] = useState(false);
     const divRef = useRef(null);
 
-    const handleSearchBox = () => {
-        setSearchBox(!searchBox);
+    const handleSelected = () => {
+        if(!selected){
+            setSelected(!selected);
+        }
     };
 
     const handleClickOutside = (event) => {
         if (divRef.current && !divRef.current.contains(event.target)) {
-            setSearchBox(false);
+            setSelected(false);
         }
     };
 
@@ -43,6 +46,10 @@ const Content = () => {
 
     const handleSearch = (event) => {
         if (event.key === 'Enter') {
+            if (query.trim() !== '') {
+                const url = `/search?q=${encodeURIComponent(query)}`;
+                window.history.pushState(null, '', url);
+            }
             performSearch(query);
         }
     };
@@ -93,6 +100,7 @@ const Content = () => {
             setResults(results);
         } catch (error) {
             setLoading(false);
+            setQuery('');
             setError('Error fetching results');
             toast.warning('Input is required!', {
                 position: toast.POSITION.TOP_RIGHT,
@@ -110,7 +118,8 @@ const Content = () => {
                     <Button
                         className='back-btn'
                         onClick={() => {
-                            setSearchTagLocation('100vh');
+                            setQuery('');
+                            window.location.href = '/';
                         }}
                     >
                         Back
@@ -132,8 +141,8 @@ const Content = () => {
                 <div className='search'>
                     <div
                         ref={divRef}
-                        className={`search-tag ${searchBox ? 'selected' : ''}`}
-                        onClick={handleSearchBox}
+                        className={`search-tag ${selected ? 'selected' : ''}`}
+                        onClick={handleSelected}
                     >
                         <input className="form-control search-board"
                             type="search"
@@ -145,6 +154,9 @@ const Content = () => {
                         <Button className='search-btn' onClick={performSearch} variant="outline-success">
                             <FaCircleArrowRight className='search-icon' />
                         </Button>
+                        {/* <Link to={`/search?q=${encodeURIComponent(query)}`} className='search-btn'>
+                            <FaCircleArrowRight className='search-icon' />
+                        </Link> */}
                     </div>
                 </div>
 
