@@ -23,6 +23,11 @@
     width: fit-content;
 }
 
+.search-tag:hover{
+    border: 1px solid grey !important;
+
+}
+
 .selected {
     border: 1px solid grey !important;
 }

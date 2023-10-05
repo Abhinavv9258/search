@@ -4,8 +4,13 @@
     margin-top: 20px !important;
     margin-bottom: 20px !important;
     justify-content: center;
+    border: 1px solid #ebebeb !important;
+    border-radius: 5px !important;
 }
 
+.list-group-flush{
+    border: 1px solid #ebebeb !important;
+}
 .card-btn-div{
     display: flex;
     justify-content: flex-end;
@@ -48,22 +53,26 @@
     box-shadow: 0 0 3px 0 rgb(115, 49, 186) !important;
 }
 
-#basic-button{
+.icon-button, #basic-button {
     color:black !important;
     border:0;
     background-color: white !important;
+    box-shadow: none !important;
+    &:focus{
+        box-shadow: none !important;
+        transition: none !important;
+    }
+    &:not(:focus) {
+        box-shadow: none !important;
+    }
 }
 #basic-menu{
     box-shadow:none !important;
 }
 
 .css-3dzjca-MuiPaper-root-MuiPopover-paper-MuiMenu-paper{
+    border: 0 !important;
     box-shadow: none !important;
-    border:1px solid !important;
-}
-
-.css-3dzjca-MuiPaper-root-MuiPopover-paper-MuiMenu-paper ul li {
-    border:1px solid !important;
 }
 
 @media(max-width:992px) {

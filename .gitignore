@@ -11,6 +11,8 @@ node_modules
 
 .gitignore
 
+demo.js
+
 # production
 /build
 
