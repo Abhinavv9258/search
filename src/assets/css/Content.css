@@ -21,6 +21,15 @@
     box-shadow: 0 0 3px 0 grey !important;
     border-color: grey !important;
     width: fit-content;
+    &:hover{
+        border: 0px solid grey !important;
+    }
+    &:active{
+        border: 1px solid grey !important;
+    }
+    &:focus{
+        border: 1px solid grey !important;
+    }
 }
 
 .search-board{
@@ -48,6 +57,10 @@
     box-shadow: 0 0 3px 0 grey !important;
     border-color: grey !important;
 } */
+.search-board::placeholder {
+    color: grey;
+    /* Replace with your desired color code */
+}
 
 input.search-board {
     padding: 9px 4px 9px 43px;
