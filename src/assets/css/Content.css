@@ -3,24 +3,33 @@
     top: 0;
     left: 0;
     width: 100%;
-    padding: 10px;
+    margin: 0 !important;
     z-index: 1;
     background: white;
+    display: flex;
+    justify-content: center;
+}
+
+.search-btn-card{
+    border:0 !important;
+    width: 100% !important;
+    box-shadow: none !important;
 }
 
 .back-btn-container {
-    margin-left: 20%;
-    margin-top: 10px;
+    margin-top: 20px;
 }
 
 .card-btn p {
     margin: 0;
 }
 
+
 .search-container {
     display: flex;
     justify-content: center;
     align-items: center;
+    width: 100%;
     flex-direction: column;
     transition: height 0.3s ease;
 }
@@ -44,7 +53,7 @@
     display: flex;
     justify-content: center;
     border-radius: 50px;
-    width: 60% !important;
+    width: 100% !important;
     border: 2px solid rgb(190, 190, 190) !important;
     transition: border-color 0.3s;
 
@@ -147,7 +156,7 @@ input.search-board {
 
 .bookmark-section {
     position: absolute;
-    bottom: 70px;
+    bottom: 74px;
     left: 0;
     width: 100%;
     transform: translateY(100%);

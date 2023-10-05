@@ -13,6 +13,7 @@ import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import { Tooltip } from '@mui/material';
+import Card from '@mui/material/Card';
 
 const Content = () => {
     const [query, setQuery] = useState('');
@@ -131,71 +132,73 @@ const Content = () => {
 
     return (
         <>
-            <div className='search-btn-container'>
-                {searchTagLocation === 'auto' ? (
-                    <div className='back-btn-container'>
-                        <Button
-                            className='card-btn'
-                            onClick={() => {
-                                setQuery('');
-                                window.location.href = '/';
-                            }}
-                        >
-                            <ArrowBackIosIcon sx={{ fontSize: "large" }} />
-                            <p>Back</p>
-                        </Button>
-                    </div>
-                ) : (
-                    null
-                )}
-                <div className='search-container' style={{ height: `${searchTagLocation}` }}>
-                    {searchTagLocation === '90vh' ? (
-                        <div>
-                            <SearchHeader />
-                        </div>
-                    ) : (
-                        null
-                    )}
-
-                    <div className='search'>
-                        <div
-                            ref={divRef}
-                            className={`search-tag ${selected ? 'selected' : ''}`}
-                            onClick={handleSelected}
-                        >
-                            <input className="form-control search-board"
-                                type="search"
-                                value={query}
-                                onKeyDown={handleSearch}
-                                onChange={handleInputChange}
-                                placeholder="Search for paper.."
-                                aria-label="Search" />
-                            <Button className='search-btn' onClick={performSearch} variant="outline-success">
-                                <FaCircleArrowRight className='search-icon' />
-                            </Button>
-                        </div>
-                    </div>
-
-                    {searchTagLocation === '90vh' ? (
-                        <div>
-                            <Button className='card-btn' onClick={performSearch}>
-                                Search the web
+            <div className='search-btn-container '>
+                <Card className='search-btn-card card' sx={{ maxWidth: 1000 }}>
+                    {searchTagLocation === 'auto' ? (
+                        <div className='back-btn-container'>
+                            <Button
+                                className='card-btn'
+                                onClick={() => {
+                                    setQuery('');
+                                    window.location.href = '/';
+                                }}
+                            >
+                                <ArrowBackIosIcon sx={{ fontSize: "large" }} />
+                                <p>Back</p>
                             </Button>
                         </div>
                     ) : (
                         null
                     )}
-                    {
-                        loading ? (
-                            <p style={{ zIndex: 2 }}>
-                                Loading...
-                            </p>
-                        ):(
+                    <div className='search-container' style={{ height: `${searchTagLocation}` }}>
+                        {searchTagLocation === '90vh' ? (
+                            <div>
+                                <SearchHeader />
+                            </div>
+                        ) : (
                             null
-                        )
-                    }
-                </div>
-            </div>
+                        )}
+
+                        <div className='search'>
+                            <div
+                                ref={divRef}
+                                className={`search-tag ${selected ? 'selected' : ''}`}
+                                onClick={handleSelected}
+                            >
+                                <input className="form-control search-board"
+                                    type="search"
+                                    value={query}
+                                    onKeyDown={handleSearch}
+                                    onChange={handleInputChange}
+                                    placeholder="Search for paper.."
+                                    aria-label="Search" />
+                                <Button className='search-btn' onClick={performSearch} variant="outline-success">
+                                    <FaCircleArrowRight className='search-icon' />
+                                </Button>
+                            </div>
+                        </div>
+
+                        {searchTagLocation === '90vh' ? (
+                            <div>
+                                <Button className='card-btn' onClick={performSearch}>
+                                    Search the web
+                                </Button>
+                            </div>
+                        ) : (
+                            null
+                        )}
+                        {
+                            loading ? (
+                                <p style={{ zIndex: 2 }}>
+                                    Loading...
+                                </p>
+                            ) : (
+                                null
+                            )
+                        }
+                    </div>
+                </Card>
+        </div>
 
             <div className='search-result-container'>
                 <div>

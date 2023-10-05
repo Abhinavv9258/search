@@ -29,21 +29,21 @@ const Cards = ({ papers }) => {
     const [expandedCitations, setExpandedCitations] = useState([]);
     const [expandedAbstracts, setExpandedAbstracts] = useState([]);
 
-    const toggleVisibility = (paperId, type) => {
-        if (type === 'citation') {
-            if (expandedCitations.includes(paperId)) {
-                setExpandedCitations(expandedCitations.filter((id) => id !== paperId));
-            } else {
-                setExpandedCitations([...expandedCitations, paperId]);
-            }
-        } else if (type === 'abstract') {
-            if (expandedAbstracts.includes(paperId)) {
-                setExpandedAbstracts(expandedAbstracts.filter((id) => id !== paperId));
-            } else {
-                setExpandedAbstracts([...expandedAbstracts, paperId]);
-            }
-        }
-    };
+    // const toggleVisibility = (paperId, type) => {
+    //     if (type === 'citation') {
+    //         if (expandedCitations.includes(paperId)) {
+    //             setExpandedCitations(expandedCitations.filter((id) => id !== paperId));
+    //         } else {
+    //             setExpandedCitations([...expandedCitations, paperId]);
+    //         }
+    //     } else if (type === 'abstract') {
+    //         if (expandedAbstracts.includes(paperId)) {
+    //             setExpandedAbstracts(expandedAbstracts.filter((id) => id !== paperId));
+    //         } else {
+    //             setExpandedAbstracts([...expandedAbstracts, paperId]);
+    //         }
+    //     }
+    // };
 
     // const isCitationExpanded = (paperId) => expandedCitations.includes(paperId);
     // const isAbstractExpanded = (paperId) => expandedAbstracts.includes(paperId);
@@ -60,7 +60,7 @@ const Cards = ({ papers }) => {
     };
 
     let paperElements = papers && papers.map((paper) => {
-        const paperId = paper.paperId;
+        // const paperId = paper.paperId;
         const title = paper.title;
         const abstract = paper.abstract;
         const url = paper.url;
@@ -135,11 +135,11 @@ const Cards = ({ papers }) => {
 
         return (
             <div className='cards' key={paper.paperId}>
-                <Card className='card' sx={{ maxWidth: 1150 }}>
+                <Card className='card' sx={{ maxWidth: 1000 }}>
                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: 16, paddingBottom: 0 }}>
                         <div>
                             <Tooltip title='Open Website'>
-                                <Typography> <a href={partialUrl} target="_blank" rel="noopener noreferrer">{partialUrl} </a> ●
+                                <Typography> <a href={url} target="_blank" rel="noopener noreferrer">{partialUrl} </a> ●
                                     {openAccessPdf ? (
                                         <>PDF</>
                                     ) : (
