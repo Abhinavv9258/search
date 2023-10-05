@@ -4,7 +4,6 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './App.css';
 import Homepage from './pages/Homepage'
-import Demo from './components/demo'
 
 function App() {
   return (
@@ -13,7 +12,6 @@ function App() {
         <ToastContainer />
         <Routes>
           <Route path='/' element={<Homepage />} />
-          <Route path='/demo' element={<Demo />} />
         </Routes>
       </BrowserRouter>
     </>
