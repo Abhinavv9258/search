@@ -9,7 +9,7 @@ import ListGroup from 'react-bootstrap/ListGroup';
 import '../assets/css/Cards.css'
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import IconButton from '@mui/material/IconButton';
+// import IconButton from '@mui/material/IconButton';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
@@ -168,7 +168,7 @@ const Cards = ({ papers }) => {
                             )}
 
                             <Tooltip title='More'>
-                                <IconButton aria-label="settings" className='icon-button'>
+                                <div aria-label="settings" className='icon-button' >
                                     <Button
                                         style={{ padding: 0, margin: 0 }}
                                         id="basic-button"
@@ -191,7 +191,7 @@ const Cards = ({ papers }) => {
                                         <MenuItem > <a href={url} target="_blank" rel="noopener noreferrer">Open Link</a></MenuItem>
                                         <MenuItem >Report</MenuItem>
                                     </Menu>
-                                </IconButton>
+                                </div>
                             </Tooltip>
                         </div>
 

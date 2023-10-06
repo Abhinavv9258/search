@@ -43,6 +43,11 @@ const Content = () => {
         };
     }, []);
 
+    useEffect(() =>{
+        if (query.trim() === '') {
+            window.history.pushState(null, '', '/');
+        }
+    },[]);
 
     const handleInputChange = (event) => {
         setQuery(event.target.value);
@@ -102,6 +107,7 @@ const Content = () => {
             const results = await searchPublication(query);
             setLoading(false);
             setResults(results);
+
         } catch (error) {
             setLoading(false);
             setQuery('');
