@@ -1,18 +1,14 @@
 import React, { useState, useRef, useEffect } from 'react';
 import Cards from './Cards';
+import Bookmarks from './Bookmarks';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Button } from 'react-bootstrap';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import '../assets/css/Content.css';
-import Typography from '@mui/material/Typography';
 import { FaCircleArrowRight } from "react-icons/fa6";
 import SearchHeader from '../components/SearchHeader.js';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
-import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
-import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import { Tooltip } from '@mui/material';
 import Card from '@mui/material/Card';
 
 const Content = () => {
@@ -21,7 +17,6 @@ const Content = () => {
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
     const [searchTagLocation, setSearchTagLocation] = useState('90vh');
-    const [bookmarkColor, setBookmarkColor] = useState('');
 
     // search box shadow
     const [selected, setSelected] = useState(false);
@@ -118,18 +113,6 @@ const Content = () => {
         }
     };
 
-    const [showBookmarks, setShowBookmarks] = useState(false);
-
-    const toggleBookmarkSection = () => {
-        if (!showBookmarks){
-            setBookmarkColor('rgb(115, 49, 186)');
-        }else{
-            setBookmarkColor('');
-        }
-        setShowBookmarks(!showBookmarks);
-    };
-
-
     return (
         <>
             <div className='search-btn-container '>
@@ -198,7 +181,7 @@ const Content = () => {
                         }
                     </div>
                 </Card>
-        </div>
+            </div>
 
             <div className='search-result-container'>
                 <div>
@@ -215,35 +198,7 @@ const Content = () => {
             </div>
 
             <div>
-                <div className={`bookmark-section ${showBookmarks ? ' show' : ''}`}>
-                    <div className={`bookmarks ${showBookmarks ? ' show' : ''}`}>
-                        <div onClick={toggleBookmarkSection} className='bookmarks-icon' style={{ color: `${bookmarkColor}` }}>
-                            <Tooltip title={`${showBookmarks ? '' : 'Open Bookmark'}`}>
-                                <div className='bookmarks-icon-1'>
-                                    <BookmarkBorderIcon sx={{ fontSize: 30 }} />
-                                    <Typography sx={{ fontSize: 20 }}>Bookmarks</Typography>
-                                </div>
-                            </Tooltip>
-
-                            <div className='bookmarks-icon-2'>
-                                {showBookmarks ? (
-                                    <KeyboardArrowDownIcon sx={{ fontSize: 30 }} />
-                                ) : (
-                                    <KeyboardArrowUpIcon sx={{ fontSize: 30 }} />
-                                )}
-                            </div>
-                        </div>
-                        {showBookmarks ? (
-                            <div className={`bookmarks-content ${showBookmarks ? ' show' : ''}`}>
-                                <div className='bookmarks-content-list'>
-                                    <Typography>No saved bookmarks were found. Bookmarks can be created from search results.</Typography>
-                                </div>
-                            </div>
-                        ) : (
-                            null
-                        )}
-                    </div>
-                </div>
+                <Bookmarks/>
             </div>
         </>
     );

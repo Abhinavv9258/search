@@ -18,6 +18,8 @@ import Tooltip from '@mui/material/Tooltip';
 
 const Cards = ({ papers }) => {
     const [anchorEl, setAnchorEl] = useState(null);
+    // bookmark functionality
+    const [bookmarkedPapers, setBookmarkedPapers] = useState([]);
     const open = Boolean(anchorEl);
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
@@ -47,9 +49,6 @@ const Cards = ({ papers }) => {
 
     // const isCitationExpanded = (paperId) => expandedCitations.includes(paperId);
     // const isAbstractExpanded = (paperId) => expandedAbstracts.includes(paperId);
-
-    // bookmark functionality
-    const [bookmarkedPapers, setBookmarkedPapers] = useState([]);
 
     const toggleBookmark = (paperId) => {
         if (bookmarkedPapers.includes(paperId)) {
@@ -141,9 +140,9 @@ const Cards = ({ papers }) => {
                             <Tooltip title='Open Website'>
                                 <Typography> <a href={url} target="_blank" rel="noopener noreferrer">{partialUrl} </a> ●
                                     {openAccessPdf ? (
-                                        <>PDF</>
+                                        <> PDF</>
                                     ) : (
-                                        <>WEB</>
+                                        <> WEB</>
                                     )
                                     }
                                 </Typography>
@@ -202,8 +201,12 @@ const Cards = ({ papers }) => {
                         title={<Typography sx={{ fontSize: 20, fontWeight: 'bold' }}><a className='card-header-title' href={url} target="_blank" rel="noopener noreferrer">{title}</a></Typography>}
                         subheader={<>
                             <Typography color="text.secondary" sx={{ fontSize: 12, fontStyle: 'italic' }}>Year : {year}</Typography>
-                            <Typography color="text.secondary" sx={{ fontSize: 12, fontStyle: 'italic' }}>Author : {visibleAuthor}</Typography>
-                            <Typography color="text.secondary" sx={{ fontSize: 12, fontStyle: 'italic' }}>Book Title : {booktitle} </Typography>
+                            {author ? (
+                                <Typography color="text.secondary" sx={{ fontSize: 12, fontStyle: 'italic' }}>Author : {visibleAuthor}</Typography>
+                            ):(null)}
+                            {booktitle ? (
+                                <Typography color="text.secondary" sx={{ fontSize: 12, fontStyle: 'italic' }}>Book Title : {booktitle} </Typography>
+                            ) : (null)}
                         </>}
                         style={{ paddingTop: 5 }}
                     />
@@ -248,9 +251,9 @@ const Cards = ({ papers }) => {
                                     )}
                                 </>
                             )}
-                        </ListGroup.Item> */}
-
-                        {/* <ListGroup.Item>
+                        </ListGroup.Item> 
+                        
+                        <ListGroup.Item>
                             {abstract && (
                                 <>
                                     {<Typography>{visibleAbstract}</Typography>}
