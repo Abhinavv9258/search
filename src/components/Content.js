@@ -10,7 +10,6 @@ import { FaCircleArrowRight } from "react-icons/fa6";
 import SearchHeader from '../components/SearchHeader.js';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import Card from '@mui/material/Card';
-import LoadingIcons from 'react-loading-icons'
 import ClipLoader from 'react-spinners/ClipLoader';
 
 
