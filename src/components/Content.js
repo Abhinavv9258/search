@@ -47,6 +47,7 @@ const Content = () => {
         if (query.trim() === '') {
             window.history.pushState(null, '', '/');
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     },[]);
 
     const handleInputChange = (event) => {
