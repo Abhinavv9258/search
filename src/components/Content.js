@@ -10,6 +10,9 @@ import { FaCircleArrowRight } from "react-icons/fa6";
 import SearchHeader from '../components/SearchHeader.js';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import Card from '@mui/material/Card';
+import LoadingIcons from 'react-loading-icons'
+import ClipLoader from 'react-spinners/ClipLoader';
+
 
 const Content = () => {
     const [query, setQuery] = useState('');
@@ -141,7 +144,6 @@ const Content = () => {
                         ) : (
                             null
                         )}
-
                         <div className='search'>
                             <div
                                 ref={divRef}
@@ -156,29 +158,29 @@ const Content = () => {
                                     placeholder="Search for paper.."
                                     aria-label="Search" />
                                 <Button className='search-btn' onClick={performSearch} variant="outline-success">
-                                    <FaCircleArrowRight className='search-icon' />
+                                    {loading ? (
+                                        <div style={{ marginRight: 'auto', display: 'flex' }}>
+                                            <ClipLoader color="rgb(115, 49, 186)" size={40} />
+                                        </div>                                    ) : (
+                                        <FaCircleArrowRight className='search-icon' />
+                                    )}
                                 </Button>
+      
                             </div>
                         </div>
-
                         {searchTagLocation === '90vh' ? (
                             <div>
-                                <Button className='card-btn' onClick={performSearch}>
-                                    Search the web
-                                </Button>
+                                {loading ? (
+                                    <ClipLoader color="rgb(115, 49, 186)" size={40} />
+                                ) : (
+                                    <Button className='card-btn' onClick={performSearch}>
+                                        Search the web
+                                    </Button>
+                                )}
                             </div>
                         ) : (
                             null
                         )}
-                        {
-                            loading ? (
-                                <p style={{ zIndex: 2 }}>
-                                    Loading...
-                                </p>
-                            ) : (
-                                null
-                            )
-                        }
                     </div>
                 </Card>
             </div>
