@@ -278,7 +278,7 @@ const Cards = ({ papers }) => {
 
     return (
         <>
-            <div style={{ marginTop: "150px", padding: 0 }}>
+            <div className='cards-deck' style={{ marginTop: "150px", padding: 0 }}>
                 {paperElements &&
                     (paperElements.length > 0 &&
                         <Typography sx={{ fontSize: 22, marginLeft: 6.5, fontWeight: 'bold' }}>
