@@ -1,5 +1,3 @@
-
-
 .search-btn-container {
     position: fixed;
     top: 0;
@@ -11,8 +9,9 @@
     display: flex;
     justify-content: center;
 }
-
 .search-btn-card{
+    margin-left:60px;
+    margin-right:60px;
     border:0 !important;
     width: 100% !important;
     box-shadow: none !important;
@@ -25,7 +24,6 @@
 .card-btn p {
     margin: 0;
 }
-
 
 .search-container {
     display: flex;
