@@ -148,7 +148,7 @@ const Cards = ({ papers }) => {
                                 </Typography>
                             </Tooltip>
                         </div>
-                        <div style={{ display: 'flex', alignItems: 'center' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', width: '60%', justifyContent: 'flex-end'}}>
                             {bookmarkedPapers.includes(paper.paperId) ? (
                                 <>
                                     <Tooltip title='Remove Bookmark'>
